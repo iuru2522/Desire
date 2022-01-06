@@ -274,6 +274,7 @@
         padding-bottom: 26px;
         margin-bottom: 26px;
         position: relative;
+        @extend %title-font;
         &::after{
             content: '';
             position: absolute;
@@ -298,6 +299,7 @@
         line-height: 51px;
         padding-bottom: 25px;
         position: relative;
+        @extend %title-font;
         &::after{
             content: '';
             position: absolute;
@@ -320,6 +322,167 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 30px;
+    &__item{
+        position: relative;
+        
+        &:hover{
+            .collection__info{
+                opacity: 1;
 
+            }
+        }
+    }
+    &__images{
+        min-height: 260px; //check here
+        min-width: 260px; //and here
+        object-fit: cover;
+    }
+    &__info{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(#fff, .7);
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center; 
+        opacity: 0;
+        transition: all .5s; 
+    }
+    &__info-title{
+        font-size: 20px;
+        line-height: 25px;
+        color: $title;
+        padding-bottom: 19px;
+        margin-bottom: 19px;
+        position: relative;
+        @extend %title-font;
+        &::after{
+            content: '';
+            bottom: 0;
+            position: absolute;
+            height: 1px;
+            background: #6D7278;
+            width: 80%;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+        }
+    }
+    &__info-text{
+        font-weight: 600;
+        font-size: 14px;
+        color: #707070;
+    }
+}
+
+.decor{
+    padding: 170px 0 155px;
+    background-image: url(../images/decor-bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    // min-height: 600px;
+    &__title{
+        max-width: 730px;
+        color: $title;
+        font-size: 60px;
+        line-height: 80px;
+        padding-bottom: 22px;
+        margin-bottom: 22px;
+        position: relative;
+        @extend %title-font;
+        &::after{
+            content: absolute;
+            left: 0;
+            width: 200px;
+            height: 1px;
+            bottom: 0;
+            background: #6D7278;
+        }
+
+    }
+    &__text{
+        max-width: 540;
+
+    }
+}
+
+.works-path{
+    padding: 80px 0 30px;
+    &__title{
+        @extend %title-font;
+        text-align: center;
+        color: $title;
+        margin-bottom: 40px;
+        font-size: 36px;
+        line-height: 51px;
+    }
+    &__items-box{
+        display: flex;
+        align-self: start;
+        border-bottom: 2px solid rgba($title, .7);
+        position: relative;
+        &::before{
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            height: 10px;
+            width: 10px;
+            background-repeat: 50%;
+            background-color: $title;
+        }
+    }
+    &__item{
+        width: 250px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        position: relative;
+        
+    }
+    &__item--production{
+        margin-left: 317px;
+        &:after{
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 20px;
+            width: 2px;
+            background: rgba($title, .7);
+
+        }
+    }
+
+    &__item--consultation,
+    &__item--production{
+        padding-bottom: 38px;
+    }
+
+    &__item--measurements{
+        padding-top: 38px;
+        margin-left: 305px;
+        &::before{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 2px;
+            background: rgba($title, .7);
+        }
+    }
+    &__item-title{
+        margin-left: 13px;
+        color: $title;
+        @extend %title-font;
+    }
+    &__item-text{
+        margin-top: 13px;
+    }
 }
 
