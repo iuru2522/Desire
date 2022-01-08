@@ -9,6 +9,7 @@
   "author": "Iurii Manastyrskyi",
   "license": "ISC",
   "devDependencies": {
+    "@fancyapps/ui": "^4.0.15",
     "browser-sync": "^2.26.13",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
