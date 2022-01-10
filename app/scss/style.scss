@@ -719,5 +719,11 @@
         border-bottom: 2px solid #fff;
         border-radius: 4px;
     }
+    &__line{
+        height: 2px;
+        border-radius: 4px;
+        background-color: $title;
+        margin-top: -2px;
+    }
 }
 
