@@ -18,7 +18,7 @@ $(function () {
         slidesToShow: 10,
         slidesToScroll: 10,
         dots: true,
-        arrows: false,
+        arrows: false
   
     });
 
