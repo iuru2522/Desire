@@ -19,8 +19,14 @@ $(function () {
         slidesToScroll: 10,
         dots: true,
         arrows: false
-  
     });
+
+    $('.article-slider__box').slick({
+        prevArrow: '<button type="button" class="article-slider__arrow article-slider__arrowleft"><img src="images/slider-arrows/arrow-slider-left.svg" alt="arrow left"></button>',
+        nextArrow: '<button type="button" class="article-slider__arrow article-slider__arrowright"><img src="images/slider-arrows/arrow-slider-right.svg" alt="arrow right"></button>',
+    });
+
+    article-slider__box
 
 var mixer = mixitup('.gallery__inner',{
     load: {
