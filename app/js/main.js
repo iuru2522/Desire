@@ -26,8 +26,6 @@ $(function () {
         nextArrow: '<button type="button" class="article-slider__arrow article-slider__arrowright"><img src="images/slider-arrows/arrow-slider-right.svg" alt="arrow right"></button>',
     });
 
-    article-slider__box
-
 var mixer = mixitup('.gallery__inner',{
     load: {
         filter: '.living'
