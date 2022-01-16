@@ -2,7 +2,6 @@ html,
 body {
 	height: 100%;
 }
-
 body {
 	font-family: 'Open Sans', sans-serif;
 	font-weight: 400;
@@ -10,36 +9,30 @@ body {
 	line-height: 27px;
 	color: $default;
 	overflow-x: hidden;
-	min-width: 320px;
-	
+	min-width: 300px;
 }
-
 .wrapper {
 	display: flex;
 	flex-direction: column;
 	min-height: 100%;
 }
-
 .main {
 	flex: 1 0 auto;
 }
 .footer {
 	flex: 0 0 auto;
 }
-
 .container{
   max-width: 1140px;
   margin: 0 auto;
   padding: 0 15px;
 }
-
 .container-fluid{
 	max-width: 1920px;
 	margin: 0 auto;
 	padding: 0 10px;
 
 }
-
 .slick-dots{
 	display: flex;
 	justify-content: center;
@@ -62,7 +55,6 @@ body {
 		}
 	}
 }
-
 .info-email{
 	font-weight: 600;
 	font-style: 14px;
@@ -80,7 +72,6 @@ body {
 		width: 16px;
 		height: 12px;
 	}
-
 }
 
 

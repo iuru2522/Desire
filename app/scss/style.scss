@@ -7,7 +7,7 @@
 //using BEM
 
 .header{
-    &__inner {
+    &__inner{
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -17,6 +17,10 @@
         background-color: transparent;
         border: none;
         cursor: pointer;
+    }
+    //responsive
+    &__btn-menu{
+        display: none;
     }
 }
 
@@ -240,11 +244,17 @@
     z-index: 10;
     &__list{
         display: flex;
+        overflow-x: auto;
+    }
+    &__item{
+        position: relative;
+        padding-right: 8px;
     }
     &__item::after{
         content: '/';
-        margin-left: -4px;
-        margin-right: 4px;
+        // margin-left: -4px;
+        // margin-right: 4px;
+        position: absolute;
     }
     &__item:last-child::after{
         display: none;
@@ -1248,5 +1258,16 @@
     }
 }
 
+@import 'media';
 
+//доступність 
+//ховає лейбл який не потрібно
+// .label{
+//     // clip: rect(1px,1px,1px,1px);
+//     height: 1px;
+//     margin: 0;
+//     overflow: hidden;
+//     position: absolute;
+//     width: 1px;
+// }
 
