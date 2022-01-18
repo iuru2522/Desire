@@ -32,6 +32,27 @@
             padding: 6px 10px;
         }
     }
+    .about{
+        &__text{
+            padding-left: 0;
+        }
+        &__content{
+            padding: 26px 0;
+        }
+    }
+    .inspiration{
+        padding-top: 55px;
+        &__content{
+            margin-right: 25px;
+        }
+        &__images{
+            margin-right: 20px;
+            margin-left: 10px;
+        }
+        &__title{
+            margin-bottom: -22px;
+        }
+    }  
 }
 @media (max-width: 840px){
     .top{
@@ -113,6 +134,17 @@
         }
         &__btn{
             margin-bottom: 10px;
+        }
+    }
+    .about{
+        &__prev{
+            padding: 80px 0;
+        }
+    }
+    .partners{
+        &__items{
+            grid-template-columns: repeat(3, 1fr);
+
         }
     }
 }
@@ -236,6 +268,12 @@
             line-height: 36px;
         }
     }
+    .about{
+        &__prev-title{
+            font-size: 40px;
+            line-height: 48px;
+        }
+    }
     .works-path{
         &__item-title{
             font-size: 16px;
@@ -249,6 +287,28 @@
         &__item:first-child{
             grid-column: 1;
             grid-row: 1;
+        }
+    }
+    .inspiration{
+        &__images{
+            display: none;
+        }
+        &__item-text,
+        &__num{
+            font-size: 16px;
+            line-height: 23px;
+        }
+        &__title{
+            margin-bottom: -13px;
+        }
+        &__text{
+            margin-bottom: 69px;
+        }
+        &__title::after{
+            margin-top: -13px;
+        }
+        &__item-text{
+            margin-right: 10px;
         }
     }
 }
