@@ -144,9 +144,9 @@
     .partners{
         &__items{
             grid-template-columns: repeat(3, 1fr);
-
         }
     }
+
 }
 @media (max-width: 650px){
     .top{
@@ -287,6 +287,12 @@
         &__item:first-child{
             grid-column: 1;
             grid-row: 1;
+        }
+        &.gallery-page{
+            .gallery.item:nth-child(8){
+                grid-column: 1;
+                grid-row: 1;
+            }
         }
     }
     .inspiration{
