@@ -1,27 +1,43 @@
 {
   "name": "gulp-start",
   "version": "1.0.0",
-  "description": "",
+  "description": "A project using Gulp for automating tasks and building web applications.",
   "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "gulp",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "gulp build",
+    "deploy": "gh-pages -d dist"
   },
   "author": "Iurii Manastyrskyi",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/gulp-start.git"
+  },
+  "keywords": [
+    "gulp",
+    "build",
+    "automation",
+    "web"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "devDependencies": {
     "@fancyapps/ui": "^4.0.15",
     "browser-sync": "^2.26.13",
     "del": "^6.0.0",
+    "gh-pages": "^4.0.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-concat": "^2.6.1",
-    "gulp-dart-sass": "^1.0.2",
+    "gulp-dart-sass": "^1.1.0",
     "gulp-imagemin": "^7.1.0",
+    "gulp-sass": "^5.1.0",
     "gulp-uglify-es": "^2.0.0",
     "jquery": "^3.5.1",
     "mixitup": "^3.3.1",
-    "sass": "^1.70.0", 
     "slick-carousel": "^1.8.1"
   }
 }

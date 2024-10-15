@@ -1,6 +1,4 @@
 const { src, dest, watch, parallel, series } = require('gulp');
-
-// Import Dart Sass properly
 const sass = require('gulp-dart-sass');
 const concat = require('gulp-concat');
 const browserSync = require('browser-sync').create();
@@ -9,21 +7,21 @@ const autoprefixer = require('gulp-autoprefixer');
 const imagemin = require('gulp-imagemin');
 const del = require('del');
 
-// BrowserSync: Live reload for changes
+// Live server for local development
 function browsersync() {
   browserSync.init({
     server: {
-      baseDir: 'app/'
+      baseDir: 'dist/'
     }
   });
 }
 
-// Clean the dist folder
+// Clean the 'dist' folder
 function cleanDist() {
   return del('dist');
 }
 
-// Optimize images
+// Optimize images and move them to 'dist/images'
 function images() {
   return src('app/images/**/*')
     .pipe(imagemin([
@@ -40,7 +38,7 @@ function images() {
     .pipe(dest('dist/images'));
 }
 
-// Bundle and minify JS files
+// Bundle and minify JavaScript, then move to 'dist/js'
 function scripts() {
   return src([
     'node_modules/jquery/dist/jquery.js',
@@ -51,47 +49,39 @@ function scripts() {
   ])
     .pipe(concat('main.min.js'))
     .pipe(uglify())
-    .pipe(dest('app/js'))
+    .pipe(dest('dist/js'))
     .pipe(browserSync.stream());
 }
 
-// Compile, autoprefix, and minify SCSS
+// Compile SCSS, autoprefix, minify CSS, and move to 'dist/css'
 function styles() {
   return src('app/scss/style.scss')
-    .pipe(sass({ outputStyle: 'compressed' })) // Use gulp-dart-sass correctly
+    .pipe(sass({ outputStyle: 'compressed' }))
     .pipe(concat('style.min.css'))
     .pipe(autoprefixer({
       overrideBrowserslist: ['last 10 versions'],
       grid: true
     }))
-    .pipe(dest('app/css'))
+    .pipe(dest('dist/css'))
     .pipe(browserSync.stream());
 }
 
-// Copy necessary files to dist
-function build() {
-  return src([
-    'app/css/style.min.css',
-    'app/fonts/**/*',
-    'app/js/main.min.js',
-    'app/*.html'
-  ], { base: 'app' })
-    .pipe(dest('dist'));
+// Copy HTML files to 'dist'
+function html() {
+  return src('app/*.html')
+    .pipe(dest('dist'))
+    .pipe(browserSync.stream());
 }
 
-// Watch for changes and reload browser
+// Watch for changes during development
 function watching() {
   watch(['app/scss/**/*.scss'], styles);
-  watch(['app/js/**/*.js', '!app/js/main.min.js'], scripts);
-  watch(['app/*.html']).on('change', browserSync.reload);
+  watch(['app/js/**/*.js', '!dist/js/main.min.js'], scripts);
+  watch(['app/*.html'], html);
 }
 
-// Export tasks
-exports.styles = styles;
-exports.scripts = scripts;
-exports.images = images;
-exports.cleanDist = cleanDist;
-exports.build = series(cleanDist, images, build);
-exports.watching = watching;
-exports.browsersync = browsersync;
-exports.default = parallel(styles, scripts, browsersync, watching);
+// Build task to clean, then copy all assets to 'dist'
+exports.build = series(cleanDist, parallel(styles, scripts, images, html));
+
+// Default task to run everything for development
+exports.default = parallel(styles, scripts, html, images, browsersync, watching);
