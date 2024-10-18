@@ -7,13 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "gulp",
     "build": "gulp build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist --repo git@github.com:iuru2522/desire.git"
   },
   "author": "Iurii Manastyrskyi",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/gulp-start.git"
+    "url": "git+https://github.com/iuru2522/desire.git"
   },
   "keywords": [
     "gulp",
