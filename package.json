@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "gulp",
     "build": "gulp build",
-    "deploy": "gh-pages -d dist --repo git@github.com:iuru2522/desire.git"
+    "deploy": "gh-pages -d dist"
   },
   "author": "Iurii Manastyrskyi",
   "license": "ISC",
