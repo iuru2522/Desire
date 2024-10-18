@@ -29,7 +29,7 @@ jobs:
       - name: Set up SSH
         uses: shimataro/ssh-key-action@v2
         with:
-          key: ${{ secrets.githb_key }}
+          key: ${{ secrets.NEWREPO }}
           name: id_rsa
           if_key_exists: fail
 
