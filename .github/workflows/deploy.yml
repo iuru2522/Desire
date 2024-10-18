@@ -21,16 +21,16 @@ jobs:
           node-version: '14'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build project
         run: npm run build
 
       - name: Deploy to GitHub Pages
         env:
-          GITHUB_TOKEN: ${{ secrets.githb_key }}
+          GH_TOKEN: ${{ secrets.githb_key }}
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/iuru2522/desire.git
+          git remote set-url origin https://${GH_TOKEN}@github.com/iuru2522/desire.git
           npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
