@@ -3,9 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - main  
     paths:
-      - '**'
+      - '**'  
 
 jobs:
   deploy:
@@ -13,30 +13,25 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '14' 
 
       - name: Install dependencies
         run: npm install
 
       - name: Build project
-        run: npm run build
+        run: npm run build  
 
-      - name: Install SSH Key
+      - name: Set up SSH
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.githb_key }}
-          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+          name: id_rsa
+          if_key_exists: fail
 
       - name: Deploy to GitHub Pages
-        env:
-          GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
-        run: |
-          git config --global user.email "github-actions@github.com"
-          git config --global user.name "GitHub Actions"
-          npm run deploy
-
+        run: npm run deploy
