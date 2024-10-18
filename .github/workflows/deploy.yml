@@ -31,6 +31,7 @@ jobs:
         with:
           key: ${{ secrets.NEWREPO }}
           name: id_rsa
+          known_hosts: github.com
           if_key_exists: fail
 
       - name: Deploy to GitHub Pages
