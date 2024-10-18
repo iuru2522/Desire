@@ -3,9 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - main  
     paths:
-      - '**'
+      - '**'  
 
 jobs:
   deploy:
@@ -13,24 +13,25 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '14' 
 
       - name: Install dependencies
         run: npm install
 
       - name: Build project
-        run: npm run build
+        run: npm run build  
+
+      - name: Set up SSH
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.githb_key }}
+          name: id_rsa
+          if_key_exists: fail
 
       - name: Deploy to GitHub Pages
-        env:
-          GH_TOKEN: ${{ secrets.githb_key }}
-        run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          git remote set-url origin https://${GH_TOKEN}@github.com/iuru2522/desire.git
-          npm run deploy -- -u "github-actions-bot <support+actions@github.com>"
+        run: npm run deploy
