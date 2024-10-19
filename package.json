@@ -6,15 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "gulp",
-    "build": "gulp build",
-    "deploy": "gh-pages -d dist"
+    "build": "gulp build"
   },
   "author": "Iurii Manastyrskyi",
   "license": "ISC",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yourusername/gulp-start.git"
-  },
   "keywords": [
     "gulp",
     "build",
