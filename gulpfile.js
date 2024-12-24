@@ -92,11 +92,14 @@
 import { src, dest, watch, series, parallel } from 'gulp';
 import concat from 'gulp-concat';
 import uglify from 'gulp-uglify-es';
-import sass from 'gulp-sass';
+import dartSass from 'sass';
+import gulpSass from 'gulp-dart-sass';
 import autoprefixer from 'gulp-autoprefixer';
 import browserSync from 'browser-sync';
 import del from 'del';
 import imagemin from 'gulp-imagemin';
+
+const sass = gulpSass(dartSass);
 
 // BrowserSync to reload the browser
 function browsersync() {
@@ -112,39 +115,6 @@ function cleanDist() {
   return del('dist');
 }
 
-// Optimize images and move to 'dist/images'
-function images() {
-  return src('app/images/**/*')
-    .pipe(imagemin([
-      imagemin.gifsicle({ interlaced: true }),
-      imagemin.mozjpeg({ quality: 75, progressive: true }),
-      imagemin.optipng({ optimizationLevel: 5 }),
-      imagemin.svgo({
-        plugins: [
-          { removeViewBox: true },
-          { cleanupIDs: false }
-        ]
-      })
-    ]))
-    .pipe(dest('dist/images'))
-    .pipe(browserSync.stream());
-}
-
-// Bundle and minify JavaScript, then move to 'dist/js'
-function scripts() {
-  return src([
-    'node_modules/jquery/dist/jquery.js',
-    'node_modules/slick-carousel/slick/slick.js',
-    'node_modules/mixitup/dist/mixitup.js',
-    'node_modules/@fancyapps/ui/',
-    'app/js/main.js'
-  ])
-    .pipe(concat('main.min.js'))
-    .pipe(uglify())
-    .pipe(dest('dist/js'))
-    .pipe(browserSync.stream());
-}
-
 // Compile SCSS, autoprefix, minify CSS, and move to 'dist/css'
 function styles() {
   return src('app/scss/style.scss')
@@ -155,6 +125,27 @@ function styles() {
       grid: true
     }))
     .pipe(dest('dist/css'))
+    .pipe(browserSync.stream());
+}
+
+// Minify JavaScript and move to 'dist/js'
+function scripts() {
+  return src([
+    'node_modules/mixitup/dist/mixitup.js',
+    'node_modules/@fancyapps/ui/',
+    'app/js/main.js'
+  ])
+    .pipe(concat('main.min.js'))
+    .pipe(uglify())
+    .pipe(dest('dist/js'))
+    .pipe(browserSync.stream());
+}
+
+// Optimize images and move to 'dist/images'
+function images() {
+  return src('app/images/**/*')
+    .pipe(imagemin())
+    .pipe(dest('dist/images'))
     .pipe(browserSync.stream());
 }
 
