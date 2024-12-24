@@ -16,6 +16,7 @@
     "automation",
     "web"
   ],
+  "type": "module",
   "engines": {
     "node": ">=14.0.0"
   },
