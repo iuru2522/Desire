@@ -1,10 +1,11 @@
+
 {
   "name": "gulp-start",
   "version": "1.0.0",
   "description": "A project using Gulp for automating tasks and building web applications.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "gulp",
     "build": "gulp build"
   },
@@ -21,18 +22,20 @@
   },
   "devDependencies": {
     "@fancyapps/ui": "^4.0.15",
-    "browser-sync": "^2.26.13",
-    "del": "^6.0.0",
+    "browser-sync": "^2.29.3",
+    "del": "^6.1.1",
     "gh-pages": "^4.0.0",
     "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^7.0.1",
+    "gulp-autoprefixer": "^8.0.0",
     "gulp-concat": "^2.6.1",
-    "gulp-dart-sass": "^1.1.0",
     "gulp-imagemin": "^7.1.0",
     "gulp-sass": "^5.1.0",
-    "gulp-uglify-es": "^2.0.0",
+    "gulp-uglify-es": "^3.0.0",
     "jquery": "^3.5.1",
     "mixitup": "^3.3.2",
     "slick-carousel": "^1.8.1"
+  },
+  "dependencies": {
+    "sass": "^1.83.0"
   }
 }

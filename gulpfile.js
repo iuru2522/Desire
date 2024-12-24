@@ -1,87 +1,96 @@
-const { src, dest, watch, parallel, series } = require('gulp');
-const sass = require('gulp-dart-sass');
-const concat = require('gulp-concat');
-const browserSync = require('browser-sync').create();
-const uglify = require('gulp-uglify-es').default;
-const autoprefixer = require('gulp-autoprefixer');
-const imagemin = require('gulp-imagemin');
-const del = require('del');
+import gulp from 'gulp';
+import concat from 'gulp-concat';
+import uglifyEs from 'gulp-uglify-es';
+import imagemin from 'gulp-imagemin';
+import browserSync from 'browser-sync';
+import del from 'del';
+import gulpSass from 'gulp-sass';
+import dartSass from 'sass';
+import autoprefixer from 'gulp-autoprefixer';
 
-// Live server for local development
-function browsersync() {
-  browserSync.init({
-    server: {
-      baseDir: 'dist/'
-    }
-  });
+const { src, dest, watch, series, parallel } = gulp;
+const uglify = uglifyEs.default;
+const sass = gulpSass(dartSass);
+const server = browserSync.create();
+
+// Compile SCSS into CSS
+function styles() {
+  return src('app/scss/**/*.scss')
+    .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
+    .pipe(autoprefixer({
+      overrideBrowserslist: ['last 10 versions'],
+      grid: true
+    }))
+    .pipe(concat('style.min.css'))
+    .pipe(dest('dist/css'))
+    .pipe(server.stream());
 }
 
-// Clean the 'dist' folder
-function cleanDist() {
-  return del('dist');
+// Bundle and minify JavaScript
+function scripts() {
+  return src([
+    'node_modules/jquery/dist/jquery.js',
+    'node_modules/slick-carousel/slick/slick.js',
+    'node_modules/mixitup/dist/mixitup.js',
+    'node_modules/@fancyapps/ui/dist/fancybox.umd.js', // Updated Fancybox path
+    'app/js/**/*.js'
+  ], { allowEmpty: true }) // Added allowEmpty option
+    .pipe(concat('main.min.js'))
+    .pipe(uglify())
+    .pipe(dest('dist/js'))
+    .pipe(server.stream());
 }
 
-// Optimize images and move them to 'dist/images'
+// Optimize images
 function images() {
-  return src('app/images/**/*')
+  return src('app/images/**/*', { allowEmpty: true })
     .pipe(imagemin([
       imagemin.gifsicle({ interlaced: true }),
       imagemin.mozjpeg({ quality: 75, progressive: true }),
       imagemin.optipng({ optimizationLevel: 5 }),
       imagemin.svgo({
         plugins: [
-          { removeViewBox: true },
+          { removeViewBox: false },
           { cleanupIDs: false }
         ]
       })
     ]))
-    .pipe(dest('dist/images'));
+    .pipe(dest('dist/images'))
+    .pipe(server.stream());
 }
 
-// Bundle and minify JavaScript, then move to 'dist/js'
-function scripts() {
-  return src([
-    'node_modules/jquery/dist/jquery.js',
-    'node_modules/slick-carousel/slick/slick.js',
-    'node_modules/mixitup/dist/mixitup.js',
-    'node_modules/@fancyapps/ui/',
-    'app/js/main.js'
-  ])
-    .pipe(concat('main.min.js'))
-    .pipe(uglify())
-    .pipe(dest('dist/js'))
-    .pipe(browserSync.stream());
-}
-
-// Compile SCSS, autoprefix, minify CSS, and move to 'dist/css'
-function styles() {
-  return src('app/scss/style.scss')
-    .pipe(sass({ outputStyle: 'compressed' }))
-    .pipe(concat('style.min.css'))
-    .pipe(autoprefixer({
-      overrideBrowserslist: ['last 10 versions'],
-      grid: true
-    }))
-    .pipe(dest('dist/css'))
-    .pipe(browserSync.stream());
-}
-
-// Copy HTML files to 'dist'
+// Copy HTML files
 function html() {
-  return src('app/*.html')
+  return src('app/*.html', { allowEmpty: true })
     .pipe(dest('dist'))
-    .pipe(browserSync.stream());
+    .pipe(server.stream());
 }
 
-// Watch for changes during development
+// Clean dist directory
+async function cleanDist() {
+  return del(['dist']);
+}
+
+// Watch for changes
 function watching() {
   watch(['app/scss/**/*.scss'], styles);
-  watch(['app/js/**/*.js', '!dist/js/main.min.js'], scripts);
+  watch(['app/js/**/*.js', '!app/js/main.min.js'], scripts);
   watch(['app/*.html'], html);
+  watch(['app/images/**/*'], images);
 }
 
-// Build task to clean, then copy all assets to 'dist'
-exports.build = series(cleanDist, parallel(styles, scripts, images, html));
+// BrowserSync server
+function browsersync() {
+  server.init({
+    server: {
+      baseDir: 'dist'
+    },
+    notify: false,
+    open: true
+  });
+}
 
-// Default task to run everything for development
-exports.default = parallel(styles, scripts, html, images, browsersync, watching);
+// Export tasks
+export const build = series(cleanDist, parallel(html, styles, scripts, images));
+export default parallel(build, browsersync, watching);
+
