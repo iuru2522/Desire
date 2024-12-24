@@ -91,29 +91,6 @@
 
 
 
-// Commented out CommonJS-style require statements
-// const { src, dest, watch, parallel, series } = require('gulp');
-// const sass = require('gulp-dart-sass');
-// const concat = require('gulp-concat');
-// const browserSync = require('browser-sync').create();
-// const uglify = require('gulp-uglify-es').default;
-// const autoprefixer = require('gulp-autoprefixer');
-// const imagemin = require('gulp-imagemin');
-// const del = require('del');
-
-// Watch for changes during development
-function watching() {
-  watch(['app/scss/**/*.scss'], styles);
-  watch(['app/js/**/*.js', '!dist/js/main.min.js'], scripts);
-  watch(['app/*.html'], html);
-}
-
-// Build task to clean, then copy all assets to 'dist'
-exports.build = series(cleanDist, parallel(styles, scripts, images, html));
-
-// Default task to run everything for development
-exports.default = parallel(styles, scripts, html, images, browsersync, watching);
-
 // Added ES module import statements
 import { src, dest, watch, parallel, series } from 'gulp';
 import sass from 'gulp-dart-sass';
@@ -138,7 +115,7 @@ function cleanDist() {
   return del('dist');
 }
 
-// Optimize images and move them to 'dist/images'
+// Optimize images and move to 'dist/images'
 function images() {
   return src('app/images/**/*')
     .pipe(imagemin([
@@ -189,3 +166,16 @@ function html() {
     .pipe(dest('dist'))
     .pipe(browserSync.stream());
 }
+
+// Watch for changes during development
+function watching() {
+  watch(['app/scss/**/*.scss'], styles);
+  watch(['app/js/**/*.js', '!dist/js/main.min.js'], scripts);
+  watch(['app/*.html'], html);
+}
+
+// Build task to clean, then copy all assets to 'dist'
+export const build = series(cleanDist, parallel(styles, scripts, images, html));
+
+// Default task to run everything for development
+export const defaultTask = parallel(styles, scripts, html, images, browsersync, watching);
