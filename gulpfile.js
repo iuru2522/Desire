@@ -89,11 +89,9 @@
 
 
 
-
-
 import { src, dest, watch, series, parallel } from 'gulp';
 import concat from 'gulp-concat';
-import uglify from 'gulp-uglify';
+import uglify from 'gulp-uglify-es';
 import sass from 'gulp-sass';
 import autoprefixer from 'gulp-autoprefixer';
 import browserSync from 'browser-sync';
@@ -142,7 +140,7 @@ function scripts() {
     'app/js/main.js'
   ])
     .pipe(concat('main.min.js'))
-    .pipe(uglify.default())
+    .pipe(uglify())
     .pipe(dest('dist/js'))
     .pipe(browserSync.stream());
 }
