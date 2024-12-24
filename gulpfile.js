@@ -91,17 +91,16 @@
 
 
 
-// Added ES module import statements
-import { src, dest, watch, parallel, series } from 'gulp';
-import sass from 'gulp-dart-sass';
+import { src, dest, watch, series, parallel } from 'gulp';
 import concat from 'gulp-concat';
-import browserSync from 'browser-sync';
-import uglify from 'gulp-uglify-es';
+import uglify from 'gulp-uglify';
+import sass from 'gulp-sass';
 import autoprefixer from 'gulp-autoprefixer';
-import imagemin from 'gulp-imagemin';
+import browserSync from 'browser-sync';
 import del from 'del';
+import imagemin from 'gulp-imagemin';
 
-// Live server for local development
+// BrowserSync to reload the browser
 function browsersync() {
   browserSync.create().init({
     server: {
@@ -129,7 +128,8 @@ function images() {
         ]
       })
     ]))
-    .pipe(dest('dist/images'));
+    .pipe(dest('dist/images'))
+    .pipe(browserSync.stream());
 }
 
 // Bundle and minify JavaScript, then move to 'dist/js'
@@ -172,6 +172,7 @@ function watching() {
   watch(['app/scss/**/*.scss'], styles);
   watch(['app/js/**/*.js', '!dist/js/main.min.js'], scripts);
   watch(['app/*.html'], html);
+  watch(['app/images/**/*'], images);
 }
 
 // Build task to clean, then copy all assets to 'dist'
