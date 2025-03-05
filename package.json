@@ -36,6 +36,6 @@
     "slick-carousel": "^1.8.1"
   },
   "dependencies": {
-    "sass": "^1.83.0"
+    "sass": "^1.85.1"
   }
 }
