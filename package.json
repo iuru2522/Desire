@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@fancyapps/ui": "^4.0.15",
-    "browser-sync": "^3.0.3",
+    "browser-sync": "^3.0.4",
     "del": "^6.1.1",
     "gh-pages": "^5.0.0",
     "gulp": "^4.0.2",
